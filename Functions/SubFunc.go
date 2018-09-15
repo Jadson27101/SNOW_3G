@@ -1,8 +1,8 @@
 package Functions
 
 func FSM() uint32 {
-	var F = (sState[15] + R1) ^ R2
-	var r = R2+(R3^sState[5])
+	F := (sState[15] + R1) ^ R2
+	r := R2+(R3^sState[5])
 	R3 = S2(R2)
 	R2 = S1(R1)
 	R1 = r
@@ -10,19 +10,19 @@ func FSM() uint32 {
 }
 
 func S1(w uint32) uint32  {
-	var W = splitS(w)
-	var r0 = xMUL(Sr[W[0]], 0x1b) ^ Sr[W[1]] ^ Sr[W[2]] ^ xMUL(Sr[W[3]], 0x1b) ^ Sr[W[3]]
-	var r1 = xMUL(Sr[W[0]], 0x1b) ^ Sr[W[0]] ^ xMUL(Sr[W[1]], 0x1b) ^ Sr[W[2]] ^ Sr[W[3]]
-	var r2 = Sr[W[0]] ^ xMUL(Sr[W[1]], 0x1b) ^ Sr[W[1]]^xMUL(Sr[W[2]], 0x1b) ^ Sr[W[3]]
-	var r3 = Sr[W[0]] ^ Sr[W[1]] ^ xMUL(Sr[W[2]], 0x1b) ^ xMUL(Sr[W[3]], 0x1b)^ Sr[W[2]]
+	W := splitS(w)
+	r0 := xMUL(Sr[W[0]], 0x1b) ^ Sr[W[1]] ^ Sr[W[2]] ^ xMUL(Sr[W[3]], 0x1b) ^ Sr[W[3]]
+	r1 := xMUL(Sr[W[0]], 0x1b) ^ Sr[W[0]] ^ xMUL(Sr[W[1]], 0x1b) ^ Sr[W[2]] ^ Sr[W[3]]
+	r2 := Sr[W[0]] ^ xMUL(Sr[W[1]], 0x1b) ^ Sr[W[1]]^xMUL(Sr[W[2]], 0x1b) ^ Sr[W[3]]
+	r3 := Sr[W[0]] ^ Sr[W[1]] ^ xMUL(Sr[W[2]], 0x1b) ^ xMUL(Sr[W[3]], 0x1b)^ Sr[W[2]]
 	return uint32((r0 << 24) | (r1 << 16) | (r2 << 8) | r3)
 }
 func S2(w uint32) uint32  {
-	var W = splitS(w)
-	var r0 = xMUL(Sq[W[0]], 0x1b) ^ Sq[W[1]] ^ Sq[W[2]] ^ xMUL(Sq[W[3]], 0x1b) ^ Sq[W[3]]
-	var r1 = xMUL(Sq[W[0]], 0x1b) ^ Sq[W[0]] ^ xMUL(Sq[W[1]], 0x1b) ^ Sq[W[2]] ^ Sq[W[3]]
-	var r2 = Sq[W[0]] ^ xMUL(Sq[W[1]], 0x1b) ^ Sq[W[1]]^xMUL(Sq[W[2]], 0x1b) ^ Sq[W[3]]
-	var r3 = Sq[W[0]] ^ Sq[W[1]] ^ xMUL(Sq[W[2]], 0x1b) ^ xMUL(Sq[W[3]], 0x1b)^ Sq[W[2]]
+	W := splitS(w)
+	r0 := xMUL(Sq[W[0]], 0x1b) ^ Sq[W[1]] ^ Sq[W[2]] ^ xMUL(Sq[W[3]], 0x1b) ^ Sq[W[3]]
+	r1 := xMUL(Sq[W[0]], 0x1b) ^ Sq[W[0]] ^ xMUL(Sq[W[1]], 0x1b) ^ Sq[W[2]] ^ Sq[W[3]]
+	r2 := Sq[W[0]] ^ xMUL(Sq[W[1]], 0x1b) ^ Sq[W[1]]^xMUL(Sq[W[2]], 0x1b) ^ Sq[W[3]]
+	r3 := Sq[W[0]] ^ Sq[W[1]] ^ xMUL(Sq[W[2]], 0x1b) ^ xMUL(Sq[W[3]], 0x1b)^ Sq[W[2]]
 	return uint32((r0 << 24) | (r1 << 16) | (r2 << 8) | r3)
 }
 func splitS(w uint32) [4]uint8{
@@ -34,7 +34,7 @@ func splitS(w uint32) [4]uint8{
 	return result
 }
 func xMUL(V uint8, c uint8) uint8{
-	var leftmost = (V & 0xFF) >> 7
+	leftmost := (V & 0xFF) >> 7
 	if leftmost == 1 {
 		return ((V << 1)&0xFF) ^ c
 	}else{
